@@ -1,0 +1,68 @@
+{% load static %}
+
+<section id="contact" class="contact-section">
+  <div class="contact-container">
+
+    <!-- LEFT SIDE -->
+    <div class="contact-left">
+      <h2 class="contact-title">Get in <span class="highlight">Touch</span></h2>
+      <p class="contact-text">
+        I’m always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
+      </p>
+
+      <div class="contact-info">
+        <div class="info-item">
+          <i class="ri-map-pin-line"></i>
+          <p>Faisalabad, Pakistan</p>
+        </div>
+        <div class="info-item">
+          <i class="ri-mail-line"></i>
+          <p><a href="mailto:ehsan.dev@gmail.com">aliserver988@gmail.com</a></p>
+        </div>
+        <div class="info-item">
+          <i class="ri-phone-line"></i>
+          <p>+92 304 5209233</p>
+        </div>
+      </div>
+
+      <div class="contact-socials">
+        <a href="https://github.com/ehsanshafiq" target="_blank" class="social-link">
+          <i class="ri-github-fill"></i>
+        </a>
+        <a href="https://facebook.com/ehsan.shafiq" target="_blank" class="social-link">
+          <i class="ri-facebook-box-fill"></i>
+        </a>
+        <a href="https://linkedin.com/in/ehsan-shafiq" target="_blank" class="social-link">
+          <i class="ri-linkedin-box-fill"></i>
+        </a>
+        <a href="https://twitter.com/" target="_blank" class="social-link">
+          <i class="ri-twitter-x-fill"></i>
+        </a>
+      </div>
+    </div>
+   
+
+
+
+    <!-- RIGHT SIDE (FORM) -->
+    <div class="contact-right">
+      <form action="" method="post" class="contact-form">
+
+        {% csrf_token %}
+        <div class="form-group">
+          <input type="text" name="name" placeholder="Your Name" required>
+        </div>
+        <div class="form-group">
+          <input type="email" name="email" placeholder="Your Email" required>
+        </div>
+        <div class="form-group">
+          <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+        </div>
+        <button type="submit" class="btn-primary">
+          <i class="ri-send-plane-line"></i> Send Message
+        </button>
+      </form>
+    </div>
+
+  </div>
+</section>

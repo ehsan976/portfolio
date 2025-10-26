@@ -1,0 +1,56 @@
+{% load static %}
+
+<section id="about" class="about-section">
+  <div class="about-container">
+
+    <!-- LEFT SIDE: IMAGE -->
+    <div class="about-left">
+      <div class="about-image-frame">
+        <img 
+          src="https://i.ibb.co/wFRCG1Ld/Whats-App-Image-2025-10-22-at-3-00-45-PM.jpg" 
+          alt="Ehsan - Developer" 
+          class="about-image">
+      </div>
+    </div>
+
+    <!-- RIGHT SIDE: TEXT -->
+    <div class="about-right">
+      <h2 class="about-title">About <span class="highlight">Me</span></h2>
+      <h3 class="about-subtitle">Full Stack Developer & Tech Enthusiast</h3>
+
+      <p class="about-text">
+        Hi! I’m <strong>Ehsan</strong> — a passionate <strong>Full Stack Developer</strong> 
+        who thrives on turning ideas into reality through clean, efficient code and 
+        beautiful design. I specialize in <strong>Django</strong> for backend development and 
+        <strong>React</strong> for building dynamic, modern user interfaces.
+      </p>
+
+      <p class="about-text">
+        My goal is to create engaging, high-performing web applications that 
+        provide seamless experiences for users. I love solving problems, learning 
+        new technologies, and building products that make a difference.
+      </p>
+
+      <div class="skills-grid">
+        <span class="skill">Python</span>
+        <span class="skill">Django</span>
+        <span class="skill">JavaScript</span>
+        <span class="skill">HTML / CSS</span>
+        <span class="skill">SQL</span>
+      </div>
+
+      <div class="about-buttons">
+        <!-- CV Page Button -->
+  <a href="{% url 'cv' %}" class="btn-primary">
+  <i class="ri-file-user-line"></i> View My CV
+</a>
+
+        <!-- Contact button -->
+        <a href="#contact" class="btn-secondary">
+          <i class="ri-message-3-line"></i> Contact Me
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
