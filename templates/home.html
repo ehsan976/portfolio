@@ -1,25 +1,22 @@
-
 {% load static %}
-
-
 <section id="home" class="hero-section">
   <div class="hero-container">
-
-    <!-- LEFT SIDE -->
     <div class="hero-left">
       <h1 class="hero-title">
-        Hi, I'm <span class="highlight">Ehsan</span>
+        {{ home.greeting }} <span class="highlight">{{ home.name }}</span>
       </h1>
-      <h2 class="hero-subtitle">Full Stack Developer</h2>
 
-      <p class="hero-description">
-        I create dynamic, user-focused web applications using 
-        <strong>Django</strong>, and <strong>JavaScript</strong>.
-      </p>
+      {% if home.subtitle %}
+        <h2 class="hero-subtitle">{{ home.subtitle }}</h2>
+      {% endif %}
 
-      <p class="hero-description">
-        Passionate about crafting beautiful, functional, and scalable solutions that bring ideas to life.
-      </p>
+      {% if home.short_desc %}
+        <p class="hero-description">{{ home.short_desc }}</p>
+      {% endif %}
+
+      {% if home.extra_desc %}
+        <p class="hero-description">{{ home.extra_desc }}</p>
+      {% endif %}
 
       <div class="hero-buttons">
         <a href="#projects" class="btn-primary">View Projects</a>
@@ -27,23 +24,14 @@
       </div>
     </div>
 
-    <!-- RIGHT SIDE (with your permanent image) -->
     <div class="hero-right">
       <div class="image-frame">
-        <img 
-          src="https://i.ibb.co/wFRCG1Ld/Whats-App-Image-2025-10-22-at-3-00-45-PM.jpg" 
-          alt="Ehsan - Developer" 
-          class="hero-image">
+        {% if home.image %}
+          <img src="{{ home.image.url }}" alt="{{ home.name }}" class="hero-image">
+        {% else %}
+          <img src="{% static 'images/default-hero.jpg' %}" alt="Default" class="hero-image">
+        {% endif %}
       </div>
     </div>
-
   </div>
 </section>
-
-
-
-
-
-
-
-

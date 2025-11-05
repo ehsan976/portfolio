@@ -8,11 +8,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function updateIcons() {
     if (document.body.classList.contains("dark")) {
-      sunIcon.classList.remove("hidden");
-      moonIcon.classList.add("hidden");
+      sunIcon?.classList.remove("hidden");
+      moonIcon?.classList.add("hidden");
     } else {
-      sunIcon.classList.add("hidden");
-      moonIcon.classList.remove("hidden");
+      sunIcon?.classList.add("hidden");
+      moonIcon?.classList.remove("hidden");
     }
   }
 
@@ -26,13 +26,11 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   updateIcons();
 
-  if (themeToggle) {
-    themeToggle.addEventListener("click", () => {
-      document.body.classList.toggle("dark");
-      localStorage.theme = document.body.classList.contains("dark") ? "dark" : "light";
-      updateIcons();
-    });
-  }
+  themeToggle?.addEventListener("click", () => {
+    document.body.classList.toggle("dark");
+    localStorage.theme = document.body.classList.contains("dark") ? "dark" : "light";
+    updateIcons();
+  });
 
   // ===============================
   // RESPONSIVE NAV MENU
@@ -50,8 +48,15 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-    navLinks.querySelectorAll("a").forEach(link => {
-      link.addEventListener("click", () => {
+    // Smooth scrolling for all section links
+    navLinks.querySelectorAll("a[href^='#']").forEach(link => {
+      link.addEventListener("click", e => {
+        e.preventDefault();
+        const targetId = link.getAttribute("href");
+        const targetSection = document.querySelector(targetId);
+        if (targetSection) {
+          smoothScrollTo(targetSection, 900);
+        }
         navLinks.classList.remove("open");
         if (menuBtnIcon) menuBtnIcon.setAttribute("class", "ri-menu-3-line");
       });
@@ -59,35 +64,31 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // ===============================
-  // CONTACT FORM (AJAX SUBMISSION)
+  // CUSTOM SMOOTH SCROLL FUNCTION (no lag, ease-out)
   // ===============================
-  const contactForm = document.querySelector(".contact-form");
+  function smoothScrollTo(target, duration = 800) {
+    const start = window.pageYOffset;
+    const end = target.getBoundingClientRect().top + start - 50;
+    const distance = end - start;
+    let startTime = null;
 
-  if (contactForm) {
-    contactForm.addEventListener("submit", function (event) {
-      event.preventDefault();
+    function animation(currentTime) {
+      if (startTime === null) startTime = currentTime;
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const easeOut = 1 - Math.pow(1 - progress, 3); // smooth ease-out curve
+      window.scrollTo(0, start + distance * easeOut);
 
-      const formData = new FormData(contactForm);
-      const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+      if (elapsed < duration) {
+        requestAnimationFrame(animation);
+      }
+    }
 
-      fetch("/", {
-        method: "POST",
-        headers: { "X-CSRFToken": csrfToken },
-        body: formData,
-      })
-        .then(response => response.ok ? response.text() : Promise.reject("Error"))
-        .then(() => {
-          showMessage("✅ Message sent successfully!", "success");
-          contactForm.reset();
-        })
-        .catch(() => {
-          showMessage("❌ Something went wrong. Try again later.", "error");
-        });
-    });
+    requestAnimationFrame(animation);
   }
 
   // ===============================
-  // FLOATING MESSAGE
+  // FLOATING MESSAGE FUNCTION
   // ===============================
   function showMessage(text, type) {
     const messageDiv = document.createElement("div");
@@ -118,72 +119,23 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // ===============================
-  // AUTO-FETCH GITHUB PROJECTS
+  // PROJECT IMAGE OPTIMIZATION
   // ===============================
-  const username = "ehsanshafiq"; // ⚠️ Replace with your GitHub username
-  const projectsGrid = document.getElementById("projects-grid");
-
-  async function fetchGitHubProjects() {
-    try {
-      const response = await fetch(`https://api.github.com/users/${username}/repos`);
-      const data = await response.json();
-      const filtered = data.filter(repo => !repo.fork);
-
-      projectsGrid.innerHTML = "";
-
-      filtered.forEach(repo => {
-        const projectCard = document.createElement("div");
-        projectCard.classList.add("project-card");
-
-        const langColor = getLanguageColor(repo.language);
-
-        projectCard.innerHTML = `
-          <div class="project-content">
-            <h3>${repo.name}</h3>
-            <p>${repo.description || "No description provided."}</p>
-            <p class="repo-meta">
-              <span class="lang-dot" style="background:${langColor}"></span>
-              ${repo.language || "Unknown"} • ⭐ ${repo.stargazers_count}
-            </p>
-            <div class="project-buttons">
-              <a href="${repo.html_url}" target="_blank" class="btn-github">
-                <i class="ri-github-fill"></i> GitHub
-              </a>
-              ${
-                repo.homepage
-                  ? `<a href="${repo.homepage}" target="_blank" class="btn-primary">Live Demo</a>`
-                  : ""
-              }
-            </div>
-          </div>
-        `;
-
-        projectsGrid.appendChild(projectCard);
-      });
-    } catch (error) {
-      console.error("Error fetching GitHub repos:", error);
-      if (projectsGrid)
-        projectsGrid.innerHTML = "<p>⚠️ Unable to load projects from GitHub.</p>";
-    }
-  }
+  const projectImages = document.querySelectorAll(".project-image img");
+  projectImages.forEach(img => {
+    img.loading = "lazy"; // ✅ native lazy load
+    img.decoding = "async"; // ✅ async decode (avoids blocking render)
+    img.style.willChange = "transform, opacity"; // ✅ GPU hint
+  });
 
   // ===============================
-  // LANGUAGE COLOR MAP
+  // PROJECT CARD GPU BOOST
   // ===============================
-  function getLanguageColor(lang) {
-    const colors = {
-      Python: "#3572A5",
-      JavaScript: "#f1e05a",
-      HTML: "#e34c26",
-      CSS: "#563d7c",
-      Java: "#b07219",
-      C: "#555555",
-      "C++": "#f34b7d",
-    };
-    return colors[lang] || "#ccc";
-  }
-
-  
-  fetchGitHubProjects();
+  const projectCards = document.querySelectorAll(".project-card");
+  projectCards.forEach(card => {
+    card.style.willChange = "transform, opacity";
+    card.style.backfaceVisibility = "hidden"; // ✅ prevents flicker
+    card.style.transform = "translateZ(0)"; // ✅ triggers GPU rendering
+    card.style.transition = "transform 0.3s ease, box-shadow 0.3s ease";
+  });
 });
-

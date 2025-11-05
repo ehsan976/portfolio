@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Resume | Ehsan{% endblock %}
+
+{% block content %}
+<section id="cv" class="cv-section">
+  <div class="cv-container">
+
+    {% if cv and cv.file %}
+      <!-- PDF Preview -->
+      <embed 
+        src="{% url 'view_cv_pdf' %}" 
+        type="application/pdf" 
+        width="100%" 
+        height="700px"
+        style="border: 2px solid #ff3d00; border-radius: 10px; box-shadow: 0 0 25px rgba(255,69,0,0.3);" />
+
+      <!-- Download Button -->
+      <div style="text-align: center; margin-top: 20px;">
+        <a href="{{ cv.file.url }}" class="btn-primary" download>
+          <i class="ri-download-2-line"></i> Download Resume
+        </a>
+      </div>
+    {% else %}
+      <p style="text-align:center; margin: 100px 0; color: #ccc;">
+        No CV uploaded yet. Please upload it from the admin panel.
+      </p>
+    {% endif %}
+
+  </div>
+</section>
+{% endblock %}
+

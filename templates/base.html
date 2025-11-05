@@ -6,23 +6,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{% block title %}Ehsan | Full Stack Developer{% endblock %}</title>
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <!-- ==============================
+       GOOGLE FONTS
+  =============================== -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
 
-  <!-- Remix Icons -->
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+  
+  <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
+    rel="stylesheet"
+  />
 
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+  integrity="sha512-vPm7xHCCgA27Vs41RnPK6TUtKD7Z7EnG2SzQmt9AVBbRoVbNlzPvnRa1k81+W1kVtFUS5wghdDUlBkoE/efyfw=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+/>
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="{% static 'style.css' %}" />
 
-  <!-- Theme Setup -->
+  
+  <link rel="stylesheet" href="{% static 'style1.css' %}" />
+
+  <!-- ==============================
+       DARK / LIGHT THEME SETUP
+  =============================== -->
   <script>
     if (
       localStorage.theme === "dark" ||
-      (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches)
+      (!("theme" in localStorage) &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
     ) {
       document.body.classList.add("dark");
     } else {
@@ -32,13 +49,11 @@
 </head>
 
 <body>
-
   <!-- ==============================
        NAVBAR
   =============================== -->
   <nav class="navbar">
     <div class="nav-container">
-
       <!-- Logo -->
       <div class="nav-logo">
         <a href="#home">Ehsan<span>.</span></a>
@@ -56,18 +71,6 @@
         <li><a href="#skills">Skills</a></li>
         <li><a href="#projects">Projects</a></li>
         <li><a href="#contact">Contact</a></li>
-
-        <!-- Live Portfolio Button -->
-        <li>
-          <a 
-            href="https://ehsanshafique.pythonanywhere.com" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            class="btn-primary btn-live"
-          >
-            <i class="ri-global-line"></i> Live
-          </a>
-        </li>
       </ul>
 
       <!-- Dark/Light Toggle -->
@@ -86,9 +89,12 @@
     {% endblock %}
   </main>
 
-  <!-- JS -->
+  <!-- ==============================
+       MAIN JS
+  =============================== -->
   <script src="{% static 'main1.js' %}"></script>
 </body>
 </html>
+
 
 

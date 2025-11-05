@@ -1,56 +1,40 @@
 {% load static %}
-
 <section id="about" class="about-section">
   <div class="about-container">
-
-    <!-- LEFT SIDE: IMAGE -->
     <div class="about-left">
       <div class="about-image-frame">
-        <img 
-          src="https://i.ibb.co/wFRCG1Ld/Whats-App-Image-2025-10-22-at-3-00-45-PM.jpg" 
-          alt="Ehsan - Developer" 
-          class="about-image">
+        {% if about.image %}
+          <img src="{{ about.image.url }}" alt="About image" class="about-image">
+        {% else %}
+          <img src="{% static 'images/default-about.jpg' %}" alt="About" class="about-image">
+        {% endif %}
       </div>
     </div>
 
-    <!-- RIGHT SIDE: TEXT -->
     <div class="about-right">
-      <h2 class="about-title">About <span class="highlight">Me</span></h2>
-      <h3 class="about-subtitle">Full Stack Developer & Tech Enthusiast</h3>
-
-      <p class="about-text">
-        Hi! I’m <strong>Ehsan</strong> — a passionate <strong>Full Stack Developer</strong> 
-        who thrives on turning ideas into reality through clean, efficient code and 
-        beautiful design. I specialize in <strong>Django</strong> for backend development and 
-        <strong>React</strong> for building dynamic, modern user interfaces.
-      </p>
-
-      <p class="about-text">
-        My goal is to create engaging, high-performing web applications that 
-        provide seamless experiences for users. I love solving problems, learning 
-        new technologies, and building products that make a difference.
-      </p>
+      <h2 class="about-title">{{ about.title }} <span class="highlight">Me</span></h2>
+      {% if about.subtitle %}<h3 class="about-subtitle">{{ about.subtitle }}</h3>{% endif %}
+      <p class="about-text">{{ about.description }}</p>
 
       <div class="skills-grid">
-        <span class="skill">Python</span>
-        <span class="skill">Django</span>
-        <span class="skill">JavaScript</span>
-        <span class="skill">HTML / CSS</span>
-        <span class="skill">SQL</span>
+        {% for skill in skills %}
+          <span class="skill">
+            {% if skill.icon_class %}
+              <i class="{{ skill.icon_class|safe }}"></i>
+            {% endif %}
+            {{ skill.name }}
+          </span>
+        {% endfor %}
       </div>
 
       <div class="about-buttons">
-        <!-- CV Page Button -->
-  <a href="{% url 'cv' %}" class="btn-primary">
-  <i class="ri-file-user-line"></i> View My CV
-</a>
-
-        <!-- Contact button -->
+        <a href="{% url 'cv' %}" class="btn-primary" target="_blank">
+          <i class="ri-file-user-line"></i> View My CV
+        </a>
         <a href="#contact" class="btn-secondary">
           <i class="ri-message-3-line"></i> Contact Me
         </a>
       </div>
     </div>
-
   </div>
 </section>

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="projects-section">
+  <div class="projects-container">
+
+    <div class="projects-header">
+      <h2 class="projects-title">All <span class="highlight">Projects</span></h2>
+      <p class="projects-description">Here is the complete list of my work.</p>
+    </div>
+
+    <div class="projects-grid">
+      {% for project in projects %}
+        <div class="project-card">
+
+          <!-- Project Image -->
+          <div class="project-image">
+            {% if project.image %}
+              <img src="{{ project.image.url }}" alt="{{ project.title }}">
+            {% else %}
+              <img src="{% static 'images/default-project.jpg' %}" alt="Project">
+            {% endif %}
+          </div>
+
+          <!-- Project Content -->
+          <div class="project-content">
+            <h3>{{ project.title }}</h3>
+            <p>{{ project.description }}</p>
+
+            <div class="project-buttons">
+              {% if project.github_link %}
+                <a href="{{ project.github_link }}" target="_blank" class="btn-github">
+                  <i class="ri-github-fill"></i> GitHub
+                </a>
+              {% endif %}
+              {% if project.live_demo_link %}
+                <a href="{{ project.live_demo_link }}" target="_blank" class="btn-primary">
+                  <i class="ri-global-line"></i> Live Demo
+                </a>
+              {% endif %}
+            </div>
+
+          </div>
+        </div>
+
+      {% empty %}
+        <p style="color:red; font-weight:bold;">No projects found.</p>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+{% endblock %}
